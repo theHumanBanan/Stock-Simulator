@@ -24,19 +24,23 @@ public class StockRunner{
             return;
         }
         double money = 100;
-        Stock oog = new Stock(10, "OOG", "Orbital Onion Games", 1);
-        Stock midl = new Stock(50, "MIDL", "Midas ID Corp., LLC", 2);
-        Stock gud = new Stock(200, "GUD", "Goorpen-Uutkar Development", 3);
-        Stock woah = new Stock(1000, "WOAH", "We Open All Houses Sales", 4);
+        Stock oog = new Stock(10, "OOG", "Orbital Onion Games");
+        Stock midl = new Stock(50, "MIDL", "Midas ID Corp., LLC");
+        Stock gud = new Stock(200, "GUD", "Goorpen-Uutkar Development");
+        Stock woah = new Stock(1000, "WOAH", "We Open All Houses Sales");
+        Stock[] newStocks = new Stock[20];
         for (int i = 1; i <= act; i++){
             System.out.println("\n" + oog);
                 System.out.println(midl);
                 System.out.println(gud);
                 System.out.println(woah);
+                for (int j = 4; j < Stock.getStockNum(); j++){
+                    System.out.println(newStocks[j - 4]);
+                }
                 System.out.println("\nAction " + i + " of " + act);
-                System.out.println("\nYou have $" + money + "\nWhat stock do you want to take part in? (pick a number)\n1. OOG\n2. MIDL\n3. GUD\n4. WOAH\n5. Pass");
+                System.out.println("\nYou have $" + money + "\nWhat stock do you want to take part in? (pick a number)\n1. OOG\n2. MIDL\n3. GUD\n4. WOAH\n5. Pass\n6. Invent a new stock");
                 int stockChoice = input.nextInt();
-                if(stockChoice != 5){
+                if(stockChoice != 5 && stockChoice != 6){
                     System.out.println("Buy(1) or Sell(2)?");
                     int payChoice = input.nextInt();
                     input.nextLine();
@@ -83,8 +87,24 @@ public class StockRunner{
                     }
                     
                 }
-                else{
+                else if (stockChoice == 5){
                     money += 0;
+                }
+                else{
+                    int q = 100 * (Stock.getStockNum() - 3);
+                    System.out.println("This will cost $" + q + " to do. Proceed? (true/false)");
+                    boolean proceed = input.nextBoolean();
+                    money -= q;
+                    input.nextLine();
+                    if (proceed){
+                        System.out.println("What is the short name of your stock? (3-4 letters)");
+                        String shortN = input.nextLine();
+                        System.out.println("What is the standard name of your stock?");
+                        String name = input.nextLine();
+                        System.out.println("What is the start price of your stock?");
+                        double stockPrice = input.nextDouble();
+                        newStocks[Stock.getStockNum() - 4] = new Stock(stockPrice, shortN, name);
+                    }
                 }
                 oog.playTheMarkets();
                 midl.playTheMarkets();

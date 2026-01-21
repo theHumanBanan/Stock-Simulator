@@ -4,12 +4,17 @@ public class Stock {
     private final String fullTitle;
     private int shares;
     private final int index;
-    public Stock(int start, String ab, String title, int stockIndex){
+    private static int stockNum = 0;
+    public Stock(double start, String ab, String title){
         currentVal = start;
         abbr = ab;
         fullTitle = title;
         shares = 0;
-        index = stockIndex;
+        stockNum++;
+        index = stockNum;
+    }
+    public static int getStockNum(){
+        return stockNum;
     }
     public void playTheMarkets(){
         int bigChoice = (int)(Math.random() * 20) + 1;
